@@ -1,4 +1,4 @@
-package ChapterOne;
+package RicksApp;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,9 +7,9 @@ public class FindGuitarTester {
     public static void main(String[] args){
         // Set up Rick's guitar inventory
         Inventory inventory = new Inventory();
-        InitializeInventory(inventory);
+        //InitializeInventory(inventory);
 
-        GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER, "Stratocastor", Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
+        GuitarSpec whatErinLikes = new GuitarSpec(Builder.FENDER, "Stratocastor", Type.ELECTRIC, 12, Wood.ALDER, Wood.ALDER);
 
         List matchingGuitars = inventory.search(whatErinLikes);
         if (!matchingGuitars.isEmpty()){

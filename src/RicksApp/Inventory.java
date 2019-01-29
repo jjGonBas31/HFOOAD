@@ -1,4 +1,4 @@
-package ChapterOne;
+package RicksApp;
 
 import java.util.Iterator;
 import java.util.LinkedList;

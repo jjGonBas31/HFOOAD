@@ -1,4 +1,4 @@
-package ChapterOne;
+package RicksApp;
 
 public enum Type {
 
