@@ -1,0 +1,59 @@
+"subclase Queen"
+
+Object subclass: #Queen
+	instanceVariableNames: 'column neighbor row'
+	classVariableNames: ''
+	package: 'Sentinel'
+
+advance
+	"first try next row"
+	(row < 8)
+		ifTrue: [ row := row + 1. ^ self findSolution ].
+		"cannot go further, move neighbor"
+	(neighbor advance) ifFalse: [ ^ false ].
+		"begin again in row 1"
+	row := 1.
+	^ self findSolution
+
+canAttack: testRow column: testColumn | columnDifference | columnDifference := testColumn - column.
+	(((row = testRow ) or:
+		[ row + columnDifference = testRow ]) or:
+		[ row - columnDifference = testRow ])
+			ifTrue: [ ^ true ].
+		^ neighbor canAttack: testRow column: testColumn
+
+findSolution
+	[ neighbor canAttack: row column: column ]
+		whileTrue: [ self advance ifFalse: [ ^ false ] ].
+	^ true
+
+result
+	^ neighbor result; addLast: row
+
+setColumn: aNumber neighbor: aQueen
+	"initialize the data fields"
+	column := aNumber.
+	neighbor := aQueen.
+	row := 1.
+	
+"subclase SentinelQueen"
+
+advance
+	"sentinels do not attack"
+	^ false
+
+canAttack: row column: column
+	"sentinels cannot attack"
+	^ false
+
+result
+	^ LinkedList new
+
+"esto no es parte de la clase Queen, adjúntalo en otra clase como en Object"
+
+solvePuzzle | lastQueen | 
+	lastQueen := SentinelQueen new.
+	1 to: 8 do: [ :i | lastQueen := (Queen new) 
+		setColumn: i neighbor: lastQueen.
+		lastQueen findSolution ].
+	^ lastQueen result
